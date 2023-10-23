@@ -1,37 +1,23 @@
 #include "lists.h"
 #include <stdlib.h>
-
 /**
- * delete_nodeint_at_index - deletes the node at index
- * @head: double pointer
- * @index: index of node
- *
- * Return: pointer to the index node
- */
-int delete_nodeint_at_index(listint_t **head, unsigned int index)
+  * add_nodeint - add node at beginning of a listint_t list.
+  *
+  * @head: head of double pointer
+  * @n: int add the list
+  * Return: NULL if it failed
+  */
+listint_t *add_nodeint(listint_t **head, const int n)
 {
-	unsigned int i;
-	listint_t *temp, *next;
+	listint_t *ptr;
 
-	if (head == NULL || *head == NULL)
-		return (-1);
-	if (index == 0)
-	{
-		next = (*head)->next;
-		free(*head);
-		*head = next;
-		return (1);
-	}
-	temp = *head;
-	for (i = 0; i < index - 1; i++)
-	{
-		if (temp->next == NULL)
-			return (-1);
-		temp = temp->next;
-	}
-	next = temp->next;
-	temp->next = next->next;
-	free(next);
-	return (1);
-
+	if (head == NULL)
+		return (NULL);
+	ptr = malloc(sizeof(listint_t));
+	if (ptr == NULL)
+		return (NULL);
+	ptr->n = n;
+	ptr->next = *head;
+	*head = ptr;
+	return (ptr);
 }
